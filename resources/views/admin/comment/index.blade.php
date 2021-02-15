@@ -26,6 +26,10 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">Total record: {{ count($comments) }}</h3>
+            <div>
+              <br>
+              {!! json_encode(auth()->user()->getRole->permission['name']) !!}
+            </div>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
