@@ -29,6 +29,25 @@
             <div>
               <br>
               {!! json_encode(auth()->user()->getRole->permission['name']) !!}
+              <br>
+              @php
+                $menu_ids = explode(',', auth()->user()->getRole->permission['menu_id']);
+                // print_r($menu_ids);
+                // echo "<br>";
+                for ($i = 0; $i < sizeof($menu_ids); $i++) {
+                  echo  App\Models\Menu::where('id', $menu_ids[$i])->first()['menu'] . " = ";
+                  // print_r(auth()->user()->getRole->permission['name']["$menu_ids[$i]"]);
+                  // echo sizeof(auth()->user()->getRole->permission['name']["$menu_ids[$i]"]);
+                  $arrayItems = auth()->user()->getRole->permission['name']["$menu_ids[$i]"];
+                  if (isset($arrayItems['view'])) { echo "View : " . $arrayItems['view'] . ", "; }
+                  if (isset($arrayItems['create'])) { echo "create : " . $arrayItems['create'] . ", "; }
+                  if (isset($arrayItems['edit'])) { echo "edit : " . $arrayItems['edit'] . ", "; }
+                  if (isset($arrayItems['delete'])) { echo "delete : " . $arrayItems['delete'] . ", "; }
+                  if (isset($arrayItems['trash'])) { echo "trash : " . $arrayItems['trash'] . ", "; }
+                  echo $arrayItems['other'] . ", ";
+                  echo "<br>";
+                }
+              @endphp
             </div>
           </div>
           <!-- /.card-header -->
