@@ -26,7 +26,9 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">Total record: {{ count($categories) }}</h3>
-            <a href="{{ route('categories.create') }}" class="btn btn-info btn-sm float-right"><i class="fas fa-plus pr-1"></i>Add new category</a>
+            <a href="{{ route('categories.create') }}" class="btn btn-info btn-sm float-right"><i
+                class="fas fa-plus pr-1"></i>Add new category</a>
+            <br>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
@@ -53,7 +55,9 @@
                   <td>
                     <a href="{{ route('categories.edit', $category['id']) }}" class="btn btn-warning" title="edit"><i
                         class="fas fa-edit"></i></a>
-                    <a href="#" class="btn btn-danger" title="delete" data-toggle="modal" data-target="#ModalCenter{{ $category['id'] }}"><i class="fas fa-trash"></i></a>
+                    @if (isset(auth()->user()->getRole->permission['name']["2"]['delete']))
+                    <a href="#" class="btn btn-danger" title="delete" data-toggle="modal"
+                      data-target="#ModalCenter{{ $category['id'] }}"><i class="fas fa-trash"></i></a>
                     <!-- Modal -->
                     <div class="modal fade" id="ModalCenter{{ $category['id'] }}" tabindex="-1" role="dialog"
                       aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -79,6 +83,7 @@
                         </div>
                       </div>
                     </div>
+                    @endif
                   </td>
                 </tr>
                 @endforeach
