@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -29,9 +30,10 @@ class ProfileController extends Controller
         $user = User::find($id);
 
         if($request->hasFile('image')) {
-            if ($request['image']->hashName() != 'users.png' && isset(auth()->user()->image)) {
-                @chmod( 'image/profile/' . auth()->user()->image, 0777 );
+            if ($request['image']->hashName() != 'users.png') {
+                fopen('image/profile/' . auth()->user()->image, 'w');
                 unlink('image/profile/' . auth()->user()->image);
+                // Storage::delete('public/image/profile/', auth()->user()->image);
             }
             $image = $request['image']->hashName();
             $request['image']->move(public_path('image/profile/'), $image);
