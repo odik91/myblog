@@ -31,9 +31,8 @@ class ProfileController extends Controller
 
         if($request->hasFile('image')) {
             if ($request['image']->hashName() != 'users.png') {
-                fopen('image/profile/' . auth()->user()->image, 'w');
                 unlink('image/profile/' . auth()->user()->image);
-                // Storage::delete('public/image/profile/', auth()->user()->image);
+                // Storage::delete('image/profile/', auth()->user()->image);
             }
             $image = $request['image']->hashName();
             $request['image']->move(public_path('image/profile/'), $image);
