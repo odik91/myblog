@@ -77,7 +77,7 @@
               <button type="button" class="btn btn-default btn-sm" id="reload"><i class="fas fa-sync-alt"></i></button>
               <div class="float-right">
                 <span
-                  class="from">1-{{ (count(App\Models\Message::where('status', 'sent')->orderBy('id', 'desc')->get()) > 50) ? "50" : count(App\Models\ Message::where('status', 'sent')->orderBy('id', 'desc')->get()) }}</span>/<span
+                  class="from">1-{{ (count(App\Models\Message::where('status', 'sent')->orderBy('id', 'desc')->get()) > 50) ? "50" : count(App\Models\Message::where('status', 'sent')->orderBy('id', 'desc')->get()) }}</span>/<span
                   class="to">{{ count(App\Models\Message::where('status', 'sent')->orderBy('id', 'desc')->get()) }}</span>
                 <div class="btn-group">
                   <button type="button" class="btn btn-default btn-sm" id="previous"><i
