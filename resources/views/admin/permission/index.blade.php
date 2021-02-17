@@ -26,7 +26,8 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">Total record: {{ count($permissions) }}</h3>
-            <a href="{{ route('permission.create') }}" class="btn btn-info btn-sm float-right"><i class="fas fa-plus pr-1"></i>Add new permission</a>
+            <a href="{{ route('permission.create') }}" class="btn btn-info btn-sm float-right"><i
+                class="fas fa-plus pr-1"></i>Add new permission</a>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
@@ -46,17 +47,21 @@
                   <td>{{ ucfirst($permission->rolePermission['name']) }}</td>
                   <td>
                     @php
-                      $menu_id = explode(',', $permission['menu_id']);
-                      $menus = App\Models\Menu::whereIn('id', $menu_id)->get();
+                    $menu_id = explode(',', $permission['menu_id']);
+                    $menus = App\Models\Menu::whereIn('id', $menu_id)->get();
                     @endphp
                     @foreach ($menus as $menu)
                     <span class="btn btn-outline-success badge-pill p-2 px-4 mb-1">{{ $menu['menu'] }}</span>
                     @endforeach
                   </td>
                   <td>
-                    <a href="{{ route('permission.show', $permission['id']) }}" class="btn btn-outline-info badge-pill mb-1" title="Details"><i class="fas fa-eye"></i></a>
-                    <a href="{{ route('permission.edit', $permission['id']) }}" class="btn btn-outline-warning badge-pill mb-1" title="edit"><i class="fas fa-edit"></i></a>
-                    <a href="#" class="btn btn-outline-danger badge-pill mb-1" title="delete" data-toggle="modal" data-target="#ModalCenter{{ $permission['id'] }}"><i class="fas fa-trash"></i></a>
+                    <a href="{{ route('permission.show', $permission['id']) }}"
+                      class="btn btn-outline-info badge-pill mb-1" title="Details"><i class="fas fa-eye"></i></a>
+                    <a href="{{ route('permission.edit', $permission['id']) }}"
+                      class="btn btn-outline-warning badge-pill mb-1" title="edit"><i class="fas fa-edit"></i></a>
+                    @if (isset(auth()->user()->getRole->permission['name']["12"]['delete']))
+                    <a href="#" class="btn btn-outline-danger badge-pill mb-1" title="delete" data-toggle="modal"
+                      data-target="#ModalCenter{{ $permission['id'] }}"><i class="fas fa-trash"></i></a>
                     <!-- Modal -->
                     <div class="modal fade" id="ModalCenter{{ $permission['id'] }}" tabindex="-1" permission="dialog"
                       aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -82,6 +87,7 @@
                         </div>
                       </div>
                     </div>
+                    @endif
                   </td>
                 </tr>
                 @endforeach

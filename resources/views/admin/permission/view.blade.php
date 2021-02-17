@@ -35,10 +35,12 @@
             <div class="card-body">
               <div class="d-flex justify-content-between">
                 <div class="col-md-8">
-                  Access for: <span class="btn btn-outline-success badge-pill p-2 px-4 mb-1">{{ $permission->rolePermission['name'] }}</span>
+                  Access for: <span
+                    class="btn btn-outline-success badge-pill p-2 px-4 mb-1">{{ $permission->rolePermission['name'] }}</span>
                 </div>
                 <div class="col-md-4">
-                  <a href="{{ route('permission.edit', [$id]) }}" class="btn btn-outline-info badge-pill p-2 px-4 mb-1 float-right">Edit</a>
+                  <a href="{{ route('permission.edit', [$id]) }}"
+                    class="btn btn-outline-info badge-pill p-2 px-4 mb-1 float-right">Edit</a>
                 </div>
               </div>
               <table class="table table-striped table-dark">
@@ -56,99 +58,148 @@
                     <th scope="col" class="text-center">Other</th>
                   </tr>
                 </thead>
+                <tfoot>
+                  <tr>
+                    <th scope="col">Menu</th>
+                    <th scope="col" class="text-center">Enable</th>
+                    <th scope="col" class="text-center">View</th>
+                    <th scope="col" class="text-center">Create</th>
+                    <th scope="col" class="text-center">Edit</th>
+                    <th scope="col" class="text-center">Delete</th>
+                    <th scope="col" class="text-center">Trash</th>
+                    <th scope="col" class="text-center">Restore</th>
+                    <th scope="col" class="text-center">Remove</th>
+                    <th scope="col" class="text-center">Other</th>
+                  </tr>
+                </tfoot>
                 <tbody>
                   @php
-                    $menu_id = explode(',', $permission['menu_id']);
-                    $menus = App\Models\Menu::whereIn('id', $menu_id)->get();
+                  $menu_id = explode(',', $permission['menu_id']);
+                  $menus = App\Models\Menu::whereIn('id', $menu_id)->get();
                   @endphp
                   @foreach ($menus as $menu)
-                    @if (count(App\Models\Submenus::where('menu_id', $menu['id'])->get()) > 0)
-                    <tr>
-                      <td>{{ $menu['menu'] }}</td>
-                      <td class="text-center">
+                  @if (count(App\Models\Submenus::where('menu_id', $menu['id'])->get()) > 0)
+                  <tr>
+                    <td>{{ $menu['menu'] }}</td>
+                    <td class="text-center">
+                      <i class="far fa-check-circle fa-2x text-primary"></i>
+                    </td>
+                    <td class="text-center">
+                      <div class="icheck-primary d-inline text">
+                        @if (isset($permission['name'][$menu['id']]['view']))
                         <i class="far fa-check-circle fa-2x text-primary"></i>
-                      </td>
-                      <td class="text-center">
-                        <div class="icheck-primary d-inline text">
-                          @if (isset($permission['name'][$menu['id']]['view']))
-                            <i class="far fa-check-circle fa-2x text-primary"></i>
-                          @endif
-                        </div>
-                      </td>
-                      <td class="text-center">
-                        <div class="icheck-primary d-inline text">
-                          @if (isset($permission['name'][$menu['id']]['create']))
-                            <i class="far fa-check-circle fa-2x text-primary"></i>
-                          @endif
-                        </div>
-                      </td>
-                      <td class="text-center">
-                        <div class="icheck-primary d-inline text">
-                          @if (isset($permission['name'][$menu['id']]['edit']))
-                            <i class="far fa-check-circle fa-2x text-primary"></i>
-                          @endif
-                        </div>
-                      </td>
-                      <td class="text-center">
-                        <div class="icheck-primary d-inline text">
-                          @if (isset($permission['name'][$menu['id']]['delete']))
-                            <i class="far fa-check-circle fa-2x text-primary"></i>
-                          @endif
-                        </div>
-                      </td>
-                      <td class="text-center">
-                        <div class="icheck-primary d-inline text">
-                          @if (isset($permission['name'][$menu['id']]['trash']))
-                            <i class="far fa-check-circle fa-2x text-primary"></i>
-                          @endif
-                        </div>
-                      </td>
-                      <td class="text-center">
-                        <div class="icheck-primary d-inline text">
-                          @if (isset($permission['name'][$menu['id']]['restore']))
-                            <i class="far fa-check-circle fa-2x text-primary"></i>
-                          @endif
-                        </div>
-                      </td>
-                      <td class="text-center">
-                        <div class="icheck-primary d-inline text">
-                          @if (isset($permission['name'][$menu['id']]['remove']))
-                            <i class="far fa-check-circle fa-2x text-primary"></i>
-                          @endif
-                        </div>
-                      </td>
-                      <td class="text-center">
-                        <div class="icheck-primary d-inline text">
-                          @if (isset($permission['name'][$menu['id']]['other']))
-                            <i class="far fa-check-circle fa-2x text-primary"></i>
-                          @endif
-                        </div>
-                      </td>
-                    </tr>
-                    @else
-                    <tr>
-                      <td>{{ $menu['menu'] }}</td>
-                      <td class="text-center">
-                        <div class="icheck-primary d-inline">
-                          <i class="far fa-check-circle fa-2x text-primary"></i>
-                        </div>
-                      </td>
-                      <td class="text-center"></td>
-                      <td class="text-center"></td>
-                      <td class="text-center"></td>
-                      <td class="text-center"></td>
-                      <td class="text-center"></td>
-                      <td class="text-center"></td>
-                      <td class="text-center"></td>
-                      <td class="text-center">
-                        <div class="icheck-primary d-inline text">
-                          @if (isset($permission['name'][$menu['id']]['other']))
-                            <i class="far fa-check-circle fa-2x text-primary"></i>
-                          @endif
-                        </div>
-                      </td>
-                    </tr>
-                    @endif
+                        @endif
+                      </div>
+                    </td>
+                    <td class="text-center">
+                      <div class="icheck-primary d-inline text">
+                        @if (isset($permission['name'][$menu['id']]['create']))
+                        <i class="far fa-check-circle fa-2x text-primary"></i>
+                        @endif
+                      </div>
+                    </td>
+                    <td class="text-center">
+                      <div class="icheck-primary d-inline text">
+                        @if (isset($permission['name'][$menu['id']]['edit']))
+                        <i class="far fa-check-circle fa-2x text-primary"></i>
+                        @endif
+                      </div>
+                    </td>
+                    <td class="text-center">
+                      <div class="icheck-primary d-inline text">
+                        @if (isset($permission['name'][$menu['id']]['delete']))
+                        <i class="far fa-check-circle fa-2x text-primary"></i>
+                        @endif
+                      </div>
+                    </td>
+                    <td class="text-center">
+                      <div class="icheck-primary d-inline text">
+                        @if (isset($permission['name'][$menu['id']]['trash']))
+                        <i class="far fa-check-circle fa-2x text-primary"></i>
+                        @endif
+                      </div>
+                    </td>
+                    <td class="text-center">
+                      <div class="icheck-primary d-inline text">
+                        @if (isset($permission['name'][$menu['id']]['restore']))
+                        <i class="far fa-check-circle fa-2x text-primary"></i>
+                        @endif
+                      </div>
+                    </td>
+                    <td class="text-center">
+                      <div class="icheck-primary d-inline text">
+                        @if (isset($permission['name'][$menu['id']]['remove']))
+                        <i class="far fa-check-circle fa-2x text-primary"></i>
+                        @endif
+                      </div>
+                    </td>
+                    <td class="text-center">
+                      <div class="icheck-primary d-inline text">
+                        @if (isset($permission['name'][$menu['id']]['other']))
+                        <i class="far fa-check-circle fa-2x text-primary"></i>
+                        @endif
+                      </div>
+                    </td>
+                  </tr>
+                  @elseif (strtolower($menu['menu']) == 'comment')
+                  <tr>
+                    <td>{{ $menu['menu'] }}</td>
+                    <td class="text-center">
+                      <div class="icheck-primary d-inline">
+                        <i class="far fa-check-circle fa-2x text-primary"></i>
+                      </div>
+                    </td>
+                    <td class="text-center">
+                      <div class="icheck-primary d-inline text">
+                        @if (isset($permission['name'][$menu['id']]['view']))
+                        <i class="far fa-check-circle fa-2x text-primary"></i>
+                        @endif
+                      </div>
+                    </td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center">
+                      <div class="icheck-primary d-inline text">
+                        @if (isset($permission['name'][$menu['id']]['delete']))
+                        <i class="far fa-check-circle fa-2x text-primary"></i>
+                        @endif
+                      </div>
+                    </td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center">
+                      <div class="icheck-primary d-inline text">
+                        @if (isset($permission['name'][$menu['id']]['other']))
+                        <i class="far fa-check-circle fa-2x text-primary"></i>
+                        @endif
+                      </div>
+                    </td>
+                  </tr>
+                  @else
+                  <tr>
+                    <td>{{ $menu['menu'] }}</td>
+                    <td class="text-center">
+                      <div class="icheck-primary d-inline">
+                        <i class="far fa-check-circle fa-2x text-primary"></i>
+                      </div>
+                    </td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center">
+                      <div class="icheck-primary d-inline text">
+                        @if (isset($permission['name'][$menu['id']]['other']))
+                        <i class="far fa-check-circle fa-2x text-primary"></i>
+                        @endif
+                      </div>
+                    </td>
+                  </tr>
+                  @endif
                   @endforeach
                 </tbody>
               </table>

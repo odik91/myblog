@@ -58,6 +58,20 @@
                       <th scope="col" class="text-center">Other</th>
                     </tr>
                   </thead>
+                  <tfoot>
+                    <tr>
+                      <th scope="col">Menu</th>
+                      <th scope="col" class="text-center">Enable</th>
+                      <th scope="col" class="text-center">View</th>
+                      <th scope="col" class="text-center">Create</th>
+                      <th scope="col" class="text-center">Edit</th>
+                      <th scope="col" class="text-center">Delete</th>
+                      <th scope="col" class="text-center">Trash</th>
+                      <th scope="col" class="text-center">Restore</th>
+                      <th scope="col" class="text-center">Remove</th>
+                      <th scope="col" class="text-center">Other</th>
+                    </tr>
+                  </tfoot>
                   <tbody>
                     @foreach (App\Models\Menu::orderBy('menu', 'asc')->get() as $menu)
                       @if (count(App\Models\Submenus::where('menu_id', $menu['id'])->get()) > 0)
@@ -119,6 +133,43 @@
                             </label>
                           </div>
                         </td>
+                        <td class="text-center">
+                          <div class="icheck-primary d-inline text">
+                            <input type="checkbox" id="other{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][other]" value="1">
+                            <label for="other{{ $menu['id'] }}">
+                            </label>
+                          </div>
+                        </td>
+                      </tr>
+                      @elseif (strtolower($menu['menu']) == 'comment')
+                      <tr>
+                        <td>{{ $menu['menu'] }}</td>
+                        <td class="text-center">
+                          <div class="icheck-primary d-inline">
+                            <input type="checkbox" id="menuEnable{{ $menu['id'] }}" name="enable[]" value="{{ $menu['id'] }}">
+                            <label for="menuEnable{{ $menu['id'] }}">
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <div class="icheck-primary d-inline text">
+                            <input type="checkbox" id="view{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][view]" value="1">
+                            <label for="view{{ $menu['id'] }}">
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center">
+                          <div class="icheck-primary d-inline text">
+                            <input type="checkbox" id="delete{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][delete]" value="1">
+                            <label for="delete{{ $menu['id'] }}">
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
                         <td class="text-center">
                           <div class="icheck-primary d-inline text">
                             <input type="checkbox" id="other{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][other]" value="1">

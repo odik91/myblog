@@ -26,7 +26,8 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">Total record: {{ count($posts) }}</h3>
-            <a href="{{ route('posts.create') }}" class="btn btn-info btn-sm float-right"><i class="fas fa-plus pr-1"></i>Add new post</a>
+            <a href="{{ route('posts.create') }}" class="btn btn-info btn-sm float-right"><i
+                class="fas fa-plus pr-1"></i>Add new post</a>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
@@ -58,9 +59,13 @@
                   <td><img src="{{ asset('post/' . $post['image']) }}" alt="" class="img-thumbnail" width="150"></td>
                   <td>{{ ucfirst($post->getUser['name']) }}</td>
                   <td>
-                    <a href="{{ route('posts.show', $post['id']) }}" class="btn btn-info mb-1" title="view"><i class="far fa-eye"></i></a>
-                    <a href="{{ route('posts.edit', $post['id']) }}" class="btn btn-warning mb-1" title="edit"><i class="fas fa-edit"></i></a>
-                    <a href="#" class="btn btn-danger mb-1" title="delete" data-toggle="modal" data-target="#ModalCenter{{ $post['id'] }}"><i class="fas fa-trash"></i></a>
+                    <a href="{{ route('posts.show', $post['id']) }}" class="btn btn-info mb-1" title="view"><i
+                        class="far fa-eye"></i></a>
+                    <a href="{{ route('posts.edit', $post['id']) }}" class="btn btn-warning mb-1" title="edit"><i
+                        class="fas fa-edit"></i></a>
+                    @if (isset(auth()->user()->getRole->permission['name']["4"]['delete']))
+                    <a href="#" class="btn btn-danger mb-1" title="delete" data-toggle="modal"
+                      data-target="#ModalCenter{{ $post['id'] }}"><i class="fas fa-trash"></i></a>
                     <!-- Modal -->
                     <div class="modal fade" id="ModalCenter{{ $post['id'] }}" tabindex="-1" role="dialog"
                       aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -86,6 +91,7 @@
                         </div>
                       </div>
                     </div>
+                    @endif
                   </td>
                 </tr>
                 @endforeach

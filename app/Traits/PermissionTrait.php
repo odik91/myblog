@@ -45,9 +45,6 @@ trait PermissionTrait
         case "permission":
           $baseRoute = 'permission';
           break;
-        case "comment":
-          $baseRoute = 'comment';
-          break;
         default:
           $baseRoute = 'dashboard';
       }
@@ -83,6 +80,14 @@ trait PermissionTrait
       // if (!isset(auth()->user()->getRole->permission['name']["$menuName->id"]['other']) && Route::is("$baseRoute.trash")) {
       //   return abort(401);
       // }
+    }
+
+    if (!isset(auth()->user()->getRole->permission['name']["7"]['other']) && Route::is("message.index")) {
+      return abort(401);
+    }
+
+    if (!isset(auth()->user()->getRole->permission['name']["13"]['other']) && Route::is("comment.index")) {
+      return abort(401);
     }
   }
 }

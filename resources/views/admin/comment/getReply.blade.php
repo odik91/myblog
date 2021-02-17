@@ -37,7 +37,9 @@
                   <th>Name</th>
                   <th>Email</th>
                   <th>Reply</th>
+                  @if (isset(auth()->user()->getRole->permission['name']["13"]['delete']))
                   <th>Delete</th>
+                  @endif
                 </tr>
               </thead>
               <tbody>
@@ -48,6 +50,7 @@
                   <td>{{ ucfirst($response['name']) }}</td>
                   <td>{{ $response['email'] }}</td>
                   <td>{{ ucfirst($response['replay']) }}</td>
+                  @if (isset(auth()->user()->getRole->permission['name']["13"]['delete']))
                   <td>
                     <a href="#" class="btn btn-danger" title="delete" data-toggle="modal"
                       data-target="#ModalCenter{{ $response['id'] }}"><i class="fas fa-trash"></i></a>
@@ -77,6 +80,7 @@
                       </div>
                     </div>
                   </td>
+                  @endif
                 </tr>
                 @endforeach
               </tbody>

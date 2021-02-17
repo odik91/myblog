@@ -47,6 +47,7 @@
                   <td>{{ ucfirst($role['description']) }}</td>
                   <td>
                     <a href="{{ route('role.edit', $role['id']) }}" class="btn btn-warning" title="edit"><i class="fas fa-edit"></i></a>
+                    @if (isset(auth()->user()->getRole->permission['name']["5"]['delete']))
                     <a href="#" class="btn btn-danger" title="delete" data-toggle="modal" data-target="#ModalCenter{{ $role['id'] }}"><i class="fas fa-trash"></i></a>
                     <!-- Modal -->
                     <div class="modal fade" id="ModalCenter{{ $role['id'] }}" tabindex="-1" role="dialog"
@@ -73,6 +74,7 @@
                         </div>
                       </div>
                     </div>
+                    @endif
                   </td>
                 </tr>
                 @endforeach

@@ -58,103 +58,153 @@
                   </thead>
                   <tbody>
                     @php
-                      $menu_id = explode(',', $permission['menu_id']);
-                      $menus = App\Models\Menu::whereIn('id', $menu_id)->get();
+                    $menu_id = explode(',', $permission['menu_id']);
+                    $menus = App\Models\Menu::whereIn('id', $menu_id)->get();
                     @endphp
                     @foreach (App\Models\Menu::orderBy('menu', 'asc')->get() as $menu)
-                      @if (count(App\Models\Submenus::where('menu_id', $menu['id'])->get()) > 0)
-                      <tr>
-                        <td>{{ $menu['menu'] }}</td>
-                        <td class="text-center">
-                          <div class="icheck-primary d-inline">
-                            <input type="checkbox" id="menuEnable{{ $menu['id'] }}" name="enable[]" value="{{ $menu['id'] }}" {{ (in_array($menu['id'], $menu_id)) ? "checked" : '' }}>
-                            <label for="menuEnable{{ $menu['id'] }}">
-                            </label>
-                          </div>
-                        </td>
-                        <td class="text-center">
-                          <div class="icheck-primary d-inline text">
-                            <input type="checkbox" id="view{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][view]" value="1" {{ (isset($permission['name'][$menu['id']]['view'])) ? "checked" : '' }}>
-                            <label for="view{{ $menu['id'] }}">
-                            </label>
-                          </div>
-                        </td>
-                        <td class="text-center">
-                          <div class="icheck-primary d-inline text">
-                            <input type="checkbox" id="create{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][create]" value="1" {{ (isset($permission['name'][$menu['id']]['create'])) ? "checked" : '' }}>
-                            <label for="create{{ $menu['id'] }}">
-                            </label>
-                          </div>
-                        </td>
-                        <td class="text-center">
-                          <div class="icheck-primary d-inline text">
-                            <input type="checkbox" id="edit{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][edit]" value="1" {{ (isset($permission['name'][$menu['id']]['edit'])) ? "checked" : '' }}>
-                            <label for="edit{{ $menu['id'] }}">
-                            </label>
-                          </div>
-                        </td>
-                        <td class="text-center">
-                          <div class="icheck-primary d-inline text">
-                            <input type="checkbox" id="delete{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][delete]" value="1" {{ (isset($permission['name'][$menu['id']]['delete'])) ? "checked" : '' }}>
-                            <label for="delete{{ $menu['id'] }}">
-                            </label>
-                          </div>
-                        </td>
-                        <td class="text-center">
-                          <div class="icheck-primary d-inline text">
-                            <input type="checkbox" id="trash{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][trash]" value="1" {{ (isset($permission['name'][$menu['id']]['trash'])) ? "checked" : '' }}>
-                            <label for="trash{{ $menu['id'] }}">
-                            </label>
-                          </div>
-                        </td>
-                        <td class="text-center">
-                          <div class="icheck-primary d-inline text">
-                            <input type="checkbox" id="restore{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][restore]" value="1" {{ (isset($permission['name'][$menu['id']]['restore'])) ? "checked" : '' }}>
-                            <label for="restore{{ $menu['id'] }}">
-                            </label>
-                          </div>
-                        </td>
-                        <td class="text-center">
-                          <div class="icheck-primary d-inline text">
-                            <input type="checkbox" id="remove{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][remove]" value="1" {{ (isset($permission['name'][$menu['id']]['remove'])) ? "checked" : '' }}>
-                            <label for="remove{{ $menu['id'] }}">
-                            </label>
-                          </div>
-                        </td>
-                        <td class="text-center">
-                          <div class="icheck-primary d-inline text">
-                            <input type="checkbox" id="other{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][other]" value="1" {{ (isset($permission['name'][$menu['id']]['other'])) ? "checked" : '' }}>
-                            <label for="other{{ $menu['id'] }}">
-                            </label>
-                          </div>
-                        </td>
-                      </tr>
-                      @else
-                      <tr>
-                        <td>{{ $menu['menu'] }}</td>
-                        <td class="text-center">
-                          <div class="icheck-primary d-inline">
-                            <input type="checkbox" id="menuEnable{{ $menu['id'] }}" name="enable[]" value="{{ $menu['id'] }}" {{ (in_array($menu['id'], $menu_id)) ? "checked" : '' }}>
-                            <label for="menuEnable{{ $menu['id'] }}">
-                            </label>
-                          </div>
-                        </td>
-                        <td class="text-center"></td>
-                        <td class="text-center"></td>
-                        <td class="text-center"></td>
-                        <td class="text-center"></td>
-                        <td class="text-center"></td>
-                        <td class="text-center"></td>
-                        <td class="text-center"></td>
-                        <td class="text-center">
-                          <div class="icheck-primary d-inline text">
-                            <input type="checkbox" id="other{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][other]" value="1" {{ (isset($permission['name'][$menu['id']]['other'])) ? "checked" : '' }}>
-                            <label for="other{{ $menu['id'] }}">
-                            </label>
-                          </div>
-                        </td>
-                      </tr>
-                      @endif
+                    @if (count(App\Models\Submenus::where('menu_id', $menu['id'])->get()) > 0)
+                    <tr>
+                      <td>{{ $menu['menu'] }}</td>
+                      <td class="text-center">
+                        <div class="icheck-primary d-inline">
+                          <input type="checkbox" id="menuEnable{{ $menu['id'] }}" name="enable[]"
+                            value="{{ $menu['id'] }}" {{ (in_array($menu['id'], $menu_id)) ? "checked" : '' }}>
+                          <label for="menuEnable{{ $menu['id'] }}">
+                          </label>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <div class="icheck-primary d-inline text">
+                          <input type="checkbox" id="view{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][view]"
+                            value="1" {{ (isset($permission['name'][$menu['id']]['view'])) ? "checked" : '' }}>
+                          <label for="view{{ $menu['id'] }}">
+                          </label>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <div class="icheck-primary d-inline text">
+                          <input type="checkbox" id="create{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][create]"
+                            value="1" {{ (isset($permission['name'][$menu['id']]['create'])) ? "checked" : '' }}>
+                          <label for="create{{ $menu['id'] }}">
+                          </label>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <div class="icheck-primary d-inline text">
+                          <input type="checkbox" id="edit{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][edit]"
+                            value="1" {{ (isset($permission['name'][$menu['id']]['edit'])) ? "checked" : '' }}>
+                          <label for="edit{{ $menu['id'] }}">
+                          </label>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <div class="icheck-primary d-inline text">
+                          <input type="checkbox" id="delete{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][delete]"
+                            value="1" {{ (isset($permission['name'][$menu['id']]['delete'])) ? "checked" : '' }}>
+                          <label for="delete{{ $menu['id'] }}">
+                          </label>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <div class="icheck-primary d-inline text">
+                          <input type="checkbox" id="trash{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][trash]"
+                            value="1" {{ (isset($permission['name'][$menu['id']]['trash'])) ? "checked" : '' }}>
+                          <label for="trash{{ $menu['id'] }}">
+                          </label>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <div class="icheck-primary d-inline text">
+                          <input type="checkbox" id="restore{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][restore]"
+                            value="1" {{ (isset($permission['name'][$menu['id']]['restore'])) ? "checked" : '' }}>
+                          <label for="restore{{ $menu['id'] }}">
+                          </label>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <div class="icheck-primary d-inline text">
+                          <input type="checkbox" id="remove{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][remove]"
+                            value="1" {{ (isset($permission['name'][$menu['id']]['remove'])) ? "checked" : '' }}>
+                          <label for="remove{{ $menu['id'] }}">
+                          </label>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <div class="icheck-primary d-inline text">
+                          <input type="checkbox" id="other{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][other]"
+                            value="1" {{ (isset($permission['name'][$menu['id']]['other'])) ? "checked" : '' }}>
+                          <label for="other{{ $menu['id'] }}">
+                          </label>
+                        </div>
+                      </td>
+                    </tr>
+                    @elseif (strtolower($menu['menu']) == 'comment')
+                    <tr>
+                      <td>{{ $menu['menu'] }}</td>
+                      <td class="text-center">
+                        <div class="icheck-primary d-inline">
+                          <input type="checkbox" id="menuEnable{{ $menu['id'] }}" name="enable[]"
+                            value="{{ $menu['id'] }}" {{ (in_array($menu['id'], $menu_id)) ? "checked" : '' }}>
+                          <label for="menuEnable{{ $menu['id'] }}">
+                          </label>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <div class="icheck-primary d-inline text">
+                          <input type="checkbox" id="view{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][view]"
+                            value="1" value="1" {{ (isset($permission['name'][$menu['id']]['view'])) ? "checked" : '' }}>
+                          <label for="view{{ $menu['id'] }}">
+                          </label>
+                        </div>
+                      </td>
+                      <td class="text-center"></td>
+                      <td class="text-center"></td>
+                      <td class="text-center">
+                        <div class="icheck-primary d-inline text">
+                          <input type="checkbox" id="delete{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][delete]" value="1" value="1" {{ (isset($permission['name'][$menu['id']]['delete'])) ? "checked" : '' }}>
+                          <label for="delete{{ $menu['id'] }}">
+                          </label>
+                        </div>
+                      </td>
+                      <td class="text-center"></td>
+                      <td class="text-center"></td>
+                      <td class="text-center"></td>
+                      <td class="text-center">
+                        <div class="icheck-primary d-inline text">
+                          <input type="checkbox" id="other{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][other]" value="1" value="1" {{ (isset($permission['name'][$menu['id']]['other'])) ? "checked" : '' }}>
+                          <label for="other{{ $menu['id'] }}">
+                          </label>
+                        </div>
+                      </td>
+                    </tr>
+                    @else
+                    <tr>
+                      <td>{{ $menu['menu'] }}</td>
+                      <td class="text-center">
+                        <div class="icheck-primary d-inline">
+                          <input type="checkbox" id="menuEnable{{ $menu['id'] }}" name="enable[]"
+                            value="{{ $menu['id'] }}" {{ (in_array($menu['id'], $menu_id)) ? "checked" : '' }}>
+                          <label for="menuEnable{{ $menu['id'] }}">
+                          </label>
+                        </div>
+                      </td>
+                      <td class="text-center"></td>
+                      <td class="text-center"></td>
+                      <td class="text-center"></td>
+                      <td class="text-center"></td>
+                      <td class="text-center"></td>
+                      <td class="text-center"></td>
+                      <td class="text-center"></td>
+                      <td class="text-center">
+                        <div class="icheck-primary d-inline text">
+                          <input type="checkbox" id="other{{ $menu['id'] }}" name="name[{{ $menu['id'] }}][other]"
+                            value="1" {{ (isset($permission['name'][$menu['id']]['other'])) ? "checked" : '' }}>
+                          <label for="other{{ $menu['id'] }}">
+                          </label>
+                        </div>
+                      </td>
+                    </tr>
+                    @endif
                     @endforeach
                   </tbody>
                 </table>

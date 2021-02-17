@@ -26,7 +26,8 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">Total record: {{ count($users) }}</h3>
-            <a href="{{ route('users.create') }}" class="btn btn-info btn-sm float-right"><i class="fas fa-plus pr-1"></i>Add new user</a>
+            <a href="{{ route('users.create') }}" class="btn btn-info btn-sm float-right"><i
+                class="fas fa-plus pr-1"></i>Add new user</a>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
@@ -50,7 +51,9 @@
                 <tr>
                   <td>{{ ++$key }}</td>
                   <td>
-                    <img src="{{ ($user['image'] != null) ? asset("image/profile/$user->image") : asset("image/profile/users.png") }}" alt="image" class="img-thumnail" width="50px">
+                    <img
+                      src="{{ ($user['image'] != null) ? asset("image/profile/$user->image") : asset("image/profile/users.png") }}"
+                      alt="image" class="img-thumnail" width="50px">
                   </td>
                   <td>{{ ucfirst($user->getRole['name']) }}</td>
                   <td>{{ ucfirst($user['username']) }}</td>
@@ -62,7 +65,9 @@
                   <td>
                     <a href="{{ route('users.edit', $user['id']) }}" class="btn btn-warning" title="edit"><i
                         class="fas fa-edit"></i></a>
-                    <a href="#" class="btn btn-danger" title="delete" data-toggle="modal" data-target="#ModalCenter{{ $user['id'] }}"><i class="fas fa-trash"></i></a>
+                    @if (isset(auth()->user()->getRole->permission['name']["6"]['delete']))
+                    <a href="#" class="btn btn-danger" title="delete" data-toggle="modal"
+                      data-target="#ModalCenter{{ $user['id'] }}"><i class="fas fa-trash"></i></a>
                     <!-- Modal -->
                     <div class="modal fade" id="ModalCenter{{ $user['id'] }}" tabindex="-1" role="dialog"
                       aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -88,6 +93,7 @@
                         </div>
                       </div>
                     </div>
+                    @endif
                   </td>
                 </tr>
                 @endforeach

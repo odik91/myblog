@@ -11,7 +11,7 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{ route('submenu.index') }}">Submenu</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('comment.index') }}">Comment</a></li>
             <li class="breadcrumb-item active">{{ $title }}</li>
           </ol>
         </div>
@@ -26,29 +26,6 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">Total record: {{ count($comments) }}</h3>
-            <div>
-              <br>
-              {!! json_encode(auth()->user()->getRole->permission['name']) !!}
-              <br>
-              @php
-                $menu_ids = explode(',', auth()->user()->getRole->permission['menu_id']);
-                // print_r($menu_ids);
-                // echo "<br>";
-                for ($i = 0; $i < sizeof($menu_ids); $i++) {
-                  echo  App\Models\Menu::where('id', $menu_ids[$i])->first()['menu'] . " = ";
-                  // print_r(auth()->user()->getRole->permission['name']["$menu_ids[$i]"]);
-                  // echo sizeof(auth()->user()->getRole->permission['name']["$menu_ids[$i]"]);
-                  $arrayItems = auth()->user()->getRole->permission['name']["$menu_ids[$i]"];
-                  if (isset($arrayItems['view'])) { echo "View : " . $arrayItems['view'] . ", "; }
-                  if (isset($arrayItems['create'])) { echo "create : " . $arrayItems['create'] . ", "; }
-                  if (isset($arrayItems['edit'])) { echo "edit : " . $arrayItems['edit'] . ", "; }
-                  if (isset($arrayItems['delete'])) { echo "delete : " . $arrayItems['delete'] . ", "; }
-                  if (isset($arrayItems['trash'])) { echo "trash : " . $arrayItems['trash'] . ", "; }
-                  echo $arrayItems['other'] . ", ";
-                  echo "<br>";
-                }
-              @endphp
-            </div>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
@@ -61,7 +38,9 @@
                   <th>Comment</th>
                   <th>Post Title</th>
                   <th>Response</th>
+                  @if (isset(auth()->user()->getRole->permission['name']["13"]['delete']))
                   <th>Delete</th>
+                  @endif
                 </tr>
               </thead>
               <tbody>
@@ -83,6 +62,7 @@
                       {{ count(App\Models\ReplayComment::where('comment_id', $comment['id'])->get()) }}
                     @endif  
                   </td>
+                  @if (isset(auth()->user()->getRole->permission['name']["13"]['delete']))
                   <td>
                     <a href="#" class="btn btn-danger" title="delete" data-toggle="modal"
                       data-target="#ModalCenter{{ $comment['id'] }}"><i class="fas fa-trash"></i></a>
@@ -111,7 +91,8 @@
                         </div>
                       </div>
                     </div>
-                  </td>
+                  </td>   
+                  @endif
                 </tr>
                 @endforeach
               </tbody>

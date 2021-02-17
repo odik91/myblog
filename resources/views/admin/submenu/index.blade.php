@@ -55,33 +55,35 @@
                   <td>
                     <a href="{{ route('submenu.edit', $submenu['id']) }}" class="btn btn-warning" title="edit"><i
                         class="fas fa-edit"></i></a>
-                    <a href="#" class="btn btn-danger" title="delete" data-toggle="modal"
-                      data-target="#ModalCenter{{ $submenu['id'] }}"><i class="fas fa-trash"></i></a>
-                    <!-- Modal -->
-                    <div class="modal fade" id="ModalCenter{{ $submenu['id'] }}" tabindex="-1" role="dialog"
-                      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header  bg-danger">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Warning</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            Are you sure want to delete <b>{{ ucfirst($submenu['title']) }}</b> ?
-                          </div>
-                          <div class="modal-footer">
-                            <form action="{{ route('submenu.destroy', $submenu['id']) }}" method="POST">
-                              @csrf
-                              @method("DELETE")
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                              <button type="submit" class="btn btn-primary">Delete</button>
-                            </form>
+                        @if (isset(auth()->user()->getRole->permission['name']["9"]['delete']))
+                        <a href="#" class="btn btn-danger" title="delete" data-toggle="modal"
+                          data-target="#ModalCenter{{ $submenu['id'] }}"><i class="fas fa-trash"></i></a>
+                        <!-- Modal -->
+                        <div class="modal fade" id="ModalCenter{{ $submenu['id'] }}" tabindex="-1" role="dialog"
+                          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header  bg-danger">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Warning</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                Are you sure want to delete <b>{{ ucfirst($submenu['title']) }}</b> ?
+                              </div>
+                              <div class="modal-footer">
+                                <form action="{{ route('submenu.destroy', $submenu['id']) }}" method="POST">
+                                  @csrf
+                                  @method("DELETE")
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-primary">Delete</button>
+                                </form>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
+                        @endif
                   </td>
                 </tr>
                 @endforeach
