@@ -110,6 +110,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
     Route::get('/comment', 'CommentController@index')->name('comment.index');
     Route::get('/comment/reply/{id}', 'CommentController@getReply')->name('comment.getreply');
     Route::delete('/comment/destroy/{id}', 'CommentController@destroy')->name('comment.destroy');
+
+    // profile
+    Route::get('profile', 'ProfileController@index')->name('profile.index');
+    Route::get('profile/{id}/edit', 'ProfileController@edit')->name('profile.edit');
+    Route::match(['put', 'patch'], 'profile/update/{id}', 'ProfileController@update')->name('profile.update');
 });
 
 // public pages
