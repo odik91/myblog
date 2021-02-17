@@ -442,14 +442,14 @@
               <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <h3>{{ count(App\Models\Message::where('drafts', 'drafts')->orderBy('created_at', 'desc')->get()) }}</h3>
+                  <h3>{{ count(App\Models\Submenus::orderBy('created_at', 'desc')->get()) }}</h3>
 
-                  <p>Drafts</p>
+                  <p>Submenu</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-ios-paper-outline"></i>
                 </div>
-                <a href="{{ route('message.drafts') }}" class="small-box-footer">More info <i
+                <a href="{{ route('submenu.index') }}" class="small-box-footer">More info <i
                     class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
@@ -458,14 +458,14 @@
               <!-- small box -->
               <div class="small-box bg-warning">
                 <div class="inner">
-                  <h3>{{ count(App\Models\Message::onlyTrashed()->get()) }}</h3>
+                  <h3>{{ count(App\Models\Submenus::onlyTrashed()->get()) }}</h3>
 
                   <p>Trash</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-trash-a"></i>
                 </div>
-                <a href="{{ route('message.trash') }}" class="small-box-footer">More info <i
+                <a href="{{ route('submenu.trash') }}" class="small-box-footer">More info <i
                     class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>

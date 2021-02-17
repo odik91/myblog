@@ -26,8 +26,6 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">Total record: {{ count($submenus) }}</h3>
-            <a href="{{ route('menu.create') }}" class="btn btn-info btn-sm float-right"><i
-                class="fas fa-plus pr-1"></i>Add new menu</a>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
