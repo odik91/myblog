@@ -29,7 +29,10 @@ class ProfileController extends Controller
         $user = User::find($id);
 
         if($request->hasFile('image')) {
-            unlink('image/profile/' . auth()->user()->image);
+            if ($request['image']->hashName() != 'users.png' && isset(auth()->user()->image)) {
+                @chmod( 'image/profile/' . auth()->user()->image, 0777 );
+                unlink('image/profile/' . auth()->user()->image);
+            }
             $image = $request['image']->hashName();
             $request['image']->move(public_path('image/profile/'), $image);
         }
