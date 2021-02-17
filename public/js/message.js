@@ -493,7 +493,7 @@ function refresh(baseURL, routing, targetCountRoute, name) {
             if (indexOffset == 0) {
               $('.from').html(from + "-" + till);
             } else if (Math.floor(indexOffset / 50) < Math.floor(count / 50)) {
-              till = indexOffset;
+              till = indexOffset + 50;
             } else {
               till = res['count'];
             }

@@ -76,9 +76,12 @@
               <!-- /.btn-group -->
               <button type="button" class="btn btn-default btn-sm" id="reload"><i class="fas fa-sync-alt"></i></button>
               <div class="float-right">
-                <span
-                  class="from">1-{{ (count(App\Models\Message::where('drafts', '!=', 'drafts')->where('status', '!=', 'sent')->get()) > 50) ? "50" : count(App\Models\Message::where('drafts', '!=', 'drafts')->where('status', '!=', 'sent')->get()) }}</span>/<span
-                  class="to">{{ count(App\Models\Message::where('drafts', '!=' ,'drafts')->where('status', '!=', 'sent')->get()) }}</span>
+                <span class="from">
+                  1-{{ (count(App\Models\Message::where('drafts', '!=', 'drafts')->where('status', '!=', 'sent')->get()) > 50) ? "50" : count(App\Models\Message::where('drafts', '!=', 'drafts')->where('status', '!=', 'sent')->get()) }}
+                </span>/
+                <span class="to">
+                  {{ count(App\Models\Message::where('drafts', '!=' ,'drafts')->where('status', '!=', 'sent')->get()) }}
+                </span>
                 <div class="btn-group">
                   <button type="button" class="btn btn-default btn-sm" id="previous"><i
                       class="fas fa-chevron-left"></i></button>
