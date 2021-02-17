@@ -30,7 +30,7 @@ class ProfileController extends Controller
         $user = User::find($id);
 
         if($request->hasFile('image')) {
-            if ($request['image']->hashName() != 'users.png') {
+            if (auth()->user()->image != 'users.png') {
                 unlink('image/profile/' . auth()->user()->image);
                 // Storage::delete('image/profile/', auth()->user()->image);
             }
