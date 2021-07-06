@@ -276,4 +276,36 @@ class BlogingController extends Controller
         Message::create($data);
         return redirect()->back()->with('message', "Your message has been sent");
     }
+
+    public function testView()
+    {
+        $firstResults = Post::offset(12)->limit(6)->get();
+        $secondResults = Post::offset(18)->limit(6)->get();
+
+        $items1 = [];
+        $items2 = [];
+
+        $allItems = [];
+        
+        $i = 1;
+        foreach ($firstResults as $firstResult) {
+            array_push($items1, [
+                'num_1' => $i,
+                'desc1' => $firstResult['title']
+            ]);
+            $i++;
+        }
+
+        foreach ($secondResults as $secondResult) {
+            array_push($items2, [
+                'num_2' => $i,
+                'desc2' => $secondResult['title']
+            ]);
+            $i++;
+        }
+
+        $allItems = [$items1, $items2];
+        // dd($allItems);
+        return view('bloging.pages.test-view', compact('allItems'));
+    }
 }

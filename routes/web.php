@@ -133,4 +133,7 @@ Route::prefix('blog')->group(function () {
     Route::get('articles/about', 'BlogingController@about')->name('article.about');
     Route::get('articles/contact', 'BlogingController@contact')->name('article.contact');
     Route::post('articles/contact', 'BlogingController@sendMessage')->name('article.sendMessage');
+
+    // test view
+    Route::get('articles/test-view', 'BlogingController@testView')->name('article.test-view');
 });
